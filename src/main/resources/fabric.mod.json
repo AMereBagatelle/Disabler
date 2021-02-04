@@ -15,8 +15,8 @@
     "client": [
       "io.github.amerebagatelle.disabler.client.DisablerClient"
     ],
-    "main": [
-      "io.github.amerebagatelle.disabler.Disabler"
+    "server": [
+      "io.github.amerebagatelle.disabler.server.DisablerServer"
     ]
   },
   "mixins": [
