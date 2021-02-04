@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "disabler",
+  "version": "${version}",
+  "name": "Disabler",
+  "description": "A library to allow client-side mods to easily be disabled from the server",
+  "authors": [
+    "AMereBagatelle"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/disabler/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "io.github.amerebagatelle.disabler.client.DisablerClient"
+    ],
+    "main": [
+      "io.github.amerebagatelle.disabler.Disabler"
+    ]
+  },
+  "mixins": [
+    "disabler.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.11.1",
+    "fabric": "*",
+    "minecraft": "1.16.5"
+  }
+}
