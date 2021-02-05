@@ -6,7 +6,6 @@
   "mixins": [
   ],
   "server": [
-    "server.CustomC2SPacketAccessor",
     "server.ServerPacketListenerMixin"
   ],
   "client": [

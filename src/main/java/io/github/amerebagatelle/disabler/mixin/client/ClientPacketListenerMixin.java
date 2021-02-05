@@ -13,8 +13,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ClientPacketListenerMixin {
     @Inject(method = "onCustomPayload", at = @At("HEAD"))
     public void onCustomPayload(CustomPayloadS2CPacket packet, CallbackInfo ci) {
-        PacketByteBuf buf = packet.getData();
-        boolean disable = buf.readBoolean();
-        DisableManager.INSTANCE.disable(packet.getChannel(), disable);
+        if(packet.getChannel().getNamespace().equals("disabler")) {
+            PacketByteBuf buf = packet.getData();
+            boolean disable = buf.readBoolean();
+            DisableManager.INSTANCE.disable(packet.getChannel(), disable);
+        }
     }
 }

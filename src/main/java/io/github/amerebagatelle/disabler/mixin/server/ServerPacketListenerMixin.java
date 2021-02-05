@@ -2,6 +2,8 @@ package io.github.amerebagatelle.disabler.mixin.server;
 
 import io.github.amerebagatelle.disabler.server.ConfigManager;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
+import net.fabricmc.fabric.impl.networking.CustomPayloadC2SPacketAccessor;
+import net.fabricmc.fabric.mixin.networking.MixinCustomPayloadC2SPacket;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.c2s.play.CustomPayloadC2SPacket;
@@ -21,11 +23,14 @@ public class ServerPacketListenerMixin {
 
     @Inject(method = "onCustomPayload", at = @At("HEAD"))
     public void onCustomPayload(CustomPayloadC2SPacket packet, CallbackInfo ci) {
-        Identifier id = ((CustomC2SPacketAccessor)packet).getChannel();
-        PacketByteBuf buf = ((CustomC2SPacketAccessor)packet).getData();
-        PlayerEntity player = server.getPlayerManager().getPlayer(buf.readUuid());
+        Identifier id = ((CustomPayloadC2SPacketAccessor)packet).getChannel();
         if(id.getNamespace().equals("disabler")) {
-            ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, id, ConfigManager.INSTANCE.getResponse(id));
+            PacketByteBuf buf = ((CustomPayloadC2SPacketAccessor) packet).getData();
+            PlayerEntity player = server.getPlayerManager().getPlayer(buf.readUuid());
+            PacketByteBuf reply = ConfigManager.INSTANCE.getResponse(id);
+            if (reply != null) {
+                ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, id, reply);
+            }
         }
     }
 }

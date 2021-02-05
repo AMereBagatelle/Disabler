@@ -12,6 +12,9 @@
   "icon": "assets/disabler/icon.png",
   "environment": "*",
   "entrypoints": {
+    "server": [
+      "io.github.amerebagatelle.disabler.server.DisablerServer"
+    ]
   },
   "mixins": [
     "disabler.mixins.json"
