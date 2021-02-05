@@ -5,7 +5,13 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
   ],
+  "server": [
+    "server.CustomC2SPacketAccessor",
+    "server.ServerPacketListenerMixin"
+  ],
   "client": [
+    "client.GameJoinMixin",
+    "client.ClientPacketListenerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
