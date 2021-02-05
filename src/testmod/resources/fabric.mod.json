@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "disablertest",
+  "version": "${version}",
+  "name": "DisablerTest",
+  "description": "Testmod for Disablerd",
+  "authors": [
+    "AMereBagatelle"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/disabler/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "io.github.amerebagatelle.disablertest.TestModClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.11.1",
+    "fabric": "*",
+    "minecraft": "1.16.5"
+  }
+}
