@@ -58,23 +58,12 @@ public class ConfigManager {
     }
 
     public PacketByteBuf getResponse(Identifier query) {
-        if(hasConfig(query)) {
-            Boolean value = Util.getValueById(configs, query);
-            if(value != null) {
-                PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
-                buf.writeBoolean(value);
-                return buf;
-            }
+        Boolean value = Util.getValueById(configs, query);
+        if(value != null) {
+            PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
+            buf.writeBoolean(value);
+            return buf;
         }
         return null;
-    }
-
-    private boolean hasConfig(Identifier query) {
-        for (Identifier identifier : configs.keySet()) {
-            if(query.getPath().equals(identifier.getPath())) {
-                return true;
-            }
-        }
-        return false;
     }
 }
