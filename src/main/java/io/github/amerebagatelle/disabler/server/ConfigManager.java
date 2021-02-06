@@ -49,7 +49,7 @@ public class ConfigManager {
             for (Map.Entry<String, JsonElement> entry : object.entrySet()) {
                 String mod = entry.getKey();
                 for (Map.Entry<String, JsonElement> entry2 : entry.getValue().getAsJsonObject().entrySet()) {
-                    configs.put(new Identifier(mod + "/" + entry2.getKey()), entry2.getValue().getAsBoolean());
+                    configs.put(new Identifier("disabler", mod + "/" + entry2.getKey()), entry2.getValue().getAsBoolean());
                 }
             }
         } catch (IOException e) {
