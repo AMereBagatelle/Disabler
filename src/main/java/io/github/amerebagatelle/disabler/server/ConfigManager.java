@@ -31,7 +31,7 @@ public class ConfigManager {
     private final Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().setLenient().create();
 
     public ConfigManager() {
-
+        loadConfig();
     }
 
     public void loadConfig() {
