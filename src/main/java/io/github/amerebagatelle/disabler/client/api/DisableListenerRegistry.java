@@ -1,5 +1,6 @@
 package io.github.amerebagatelle.disabler.client.api;
 
+import io.github.amerebagatelle.disabler.common.util.Util;
 import net.minecraft.util.Identifier;
 
 import java.util.HashMap;
@@ -8,7 +9,7 @@ import java.util.function.Consumer;
 public class DisableListenerRegistry {
     public static final DisableListenerRegistry INSTANCE = new DisableListenerRegistry();
 
-    public final HashMap<Identifier, Consumer<Boolean>> listeners = new HashMap<>();
+    private static final HashMap<Identifier, Consumer<Boolean>> listeners = new HashMap<>();
 
     /**
      * Registers a listener for disabling a feature.
@@ -20,5 +21,12 @@ public class DisableListenerRegistry {
      */
     public void register(String modId, String feature, Consumer<Boolean> consumer) {
         listeners.put(new Identifier("disabler",modId + "/" + feature), consumer);
+    }
+
+    public static void disable(Identifier id, boolean disable) {
+        Consumer<Boolean> consumer = Util.getValueById(listeners, id);
+        if(consumer != null) {
+            consumer.accept(disable);
+        }
     }
 }

@@ -1,6 +1,6 @@
 package io.github.amerebagatelle.disabler.mixin.client;
 
-import io.github.amerebagatelle.disabler.client.DisableManager;
+import io.github.amerebagatelle.disabler.client.api.DisableListenerRegistry;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.s2c.play.CustomPayloadS2CPacket;
@@ -16,7 +16,7 @@ public class ClientPacketListenerMixin {
         if(packet.getChannel().getNamespace().equals("disabler")) {
             PacketByteBuf buf = packet.getData();
             boolean disable = buf.readBoolean();
-            DisableManager.INSTANCE.disable(packet.getChannel(), disable);
+            DisableListenerRegistry.disable(packet.getChannel(), disable);
         }
     }
 }
