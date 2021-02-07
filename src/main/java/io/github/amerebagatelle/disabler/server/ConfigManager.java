@@ -9,6 +9,7 @@ import io.github.amerebagatelle.disabler.common.util.Util;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
@@ -54,7 +55,7 @@ public class ConfigManager {
     public static PacketByteBuf getResponse(Identifier query) {
         Boolean value = Util.getValueById(configs, query);
         if(value != null) {
-            PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
+            PacketByteBuf buf = PacketByteBufs.create();
             buf.writeBoolean(value);
             return buf;
         }

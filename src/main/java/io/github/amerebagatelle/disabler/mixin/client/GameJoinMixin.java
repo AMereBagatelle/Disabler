@@ -2,7 +2,9 @@ package io.github.amerebagatelle.disabler.mixin.client;
 
 import io.github.amerebagatelle.disabler.client.api.DisableListenerRegistry;
 import io.netty.buffer.Unpooled;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.PacketByteBuf;
@@ -26,9 +28,9 @@ public class GameJoinMixin {
     public void onGameJoin(GameJoinS2CPacket packet, CallbackInfo ci) {
         // Query for mods to disable
         for (Identifier identifier : DisableListenerRegistry.getListeners().keySet()) {
-            PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
+            PacketByteBuf buf = PacketByteBufs.create();
             buf.writeUuid(MinecraftClient.getInstance().player.getUuid());
-            ClientSidePacketRegistry.INSTANCE.sendToServer(identifier, buf);
+            ClientPlayNetworking.send(identifier, buf);
         }
     }
 
