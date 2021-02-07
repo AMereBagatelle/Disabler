@@ -11,6 +11,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ClientPlayNetworkHandler.class)
 public class ClientPacketListenerMixin {
+    /**
+     * Accepts disable packets from the server.
+     */
     @Inject(method = "onCustomPayload", at = @At("HEAD"))
     public void onCustomPayload(CustomPayloadS2CPacket packet, CallbackInfo ci) {
         if(packet.getChannel().getNamespace().equals("disabler")) {

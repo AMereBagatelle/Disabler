@@ -9,7 +9,7 @@ public class TestModClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        DisableListenerRegistry.INSTANCE.register("testmod", "example_feature", TestModClient::toggle);
+        DisableListenerRegistry.register("testmod", "example_feature", TestModClient::toggle);
 
     }
 

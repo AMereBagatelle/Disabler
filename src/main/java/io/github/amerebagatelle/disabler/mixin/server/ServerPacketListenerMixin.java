@@ -21,13 +21,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ServerPacketListenerMixin {
     @Shadow @Final private MinecraftServer server;
 
+    /**
+     * Accepts query packets from the client and checks whether there is a response.  If so, sends the response to the client.
+     */
     @Inject(method = "onCustomPayload", at = @At("HEAD"))
     public void onCustomPayload(CustomPayloadC2SPacket packet, CallbackInfo ci) {
         Identifier id = ((CustomPayloadC2SPacketAccessor)packet).getChannel();
         if(id.getNamespace().equals("disabler")) {
             PacketByteBuf buf = ((CustomPayloadC2SPacketAccessor) packet).getData();
             PlayerEntity player = server.getPlayerManager().getPlayer(buf.readUuid());
-            PacketByteBuf reply = ConfigManager.INSTANCE.getResponse(id);
+            PacketByteBuf reply = ConfigManager.getResponse(id);
             if (reply != null) {
                 ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, id, reply);
             }

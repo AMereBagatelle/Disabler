@@ -25,16 +25,10 @@ import java.util.List;
 import java.util.Map;
 
 public class ConfigManager {
-    public static final ConfigManager INSTANCE = new ConfigManager();
+    private static final HashMap<Identifier, Boolean> configs = new HashMap<>();
+    private static final Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().setLenient().create();
 
-    private final HashMap<Identifier, Boolean> configs = new HashMap<>();
-    private final Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().setLenient().create();
-
-    public ConfigManager() {
-        loadConfig();
-    }
-
-    public void loadConfig() {
+    public static void loadConfig() {
         // clear configs so that new ones can be loaded
         configs.clear();
 
@@ -57,7 +51,7 @@ public class ConfigManager {
         }
     }
 
-    public PacketByteBuf getResponse(Identifier query) {
+    public static PacketByteBuf getResponse(Identifier query) {
         Boolean value = Util.getValueById(configs, query);
         if(value != null) {
             PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
