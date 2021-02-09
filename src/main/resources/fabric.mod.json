@@ -7,7 +7,10 @@
   "authors": [
     "AMereBagatelle"
   ],
-  "contact": {},
+  "contact": {
+    "sources": "https://github.com/AMereBagatelle/Disabler",
+    "issues": "https://github.com/AMereBagatelle/Disabler/issues"
+  },
   "license": "MIT",
   "icon": "assets/disabler/icon.png",
   "environment": "*",
