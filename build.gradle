@@ -1,10 +1,7 @@
 plugins {
-    id 'fabric-loom' version '0.6-SNAPSHOT'
+    id 'fabric-loom' version '0.8-SNAPSHOT'
     id 'maven-publish'
 }
-
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
 
 archivesBaseName = project.archives_base_name
 version = project.mod_version
@@ -30,14 +27,11 @@ dependencies {
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-    // Fabric API. This is technically optional, but you probably want it anyway.
-    modImplementation include("net.fabricmc.fabric-api:fabric-networking-api-v1:1.0.0+134214f042")
+    modImplementation include("net.fabricmc.fabric-api:fabric-networking-api-v1:1.0.9+a02b4463d3")
 
-    // PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
-    // You may need to force-disable transitiveness on them.
-    modRuntime ("com.github.SuperCoder7979:databreaker:${project.databreaker_version}") {
-        exclude module: "fabric-loader"
-    }
+    //modRuntime ("com.github.SuperCoder7979:databreaker:${project.databreaker_version}") {
+    //    exclude module: "fabric-loader"
+    //}
 
     testmodImplementation sourceSets.main.output
 }
@@ -45,13 +39,8 @@ dependencies {
 processResources {
     inputs.property "version", project.version
 
-    from(sourceSets.main.resources.srcDirs) {
-        include "fabric.mod.json"
+    filesMatching("fabric.mod.json") {
         expand "version": project.version
-    }
-
-    from(sourceSets.main.resources.srcDirs) {
-        exclude "fabric.mod.json"
     }
 }
 
